@@ -3,17 +3,25 @@ import EditScreenInfo from '@/src/components/EditScreenInfo';
 import { Text, View, } from '@/src/components/Themed';
 import { Image } from 'react-native';
 import Colors from '@/src/constants/Colors';
+import { Product } from '../Types';
 
 
-const ProductListItem = ({product}) => {
+export const defaultShoeImage = `https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png`
+
+type ProductListItemProps = {
+    product:Product
+}
+
+
+const ProductListItem = ({product} : ProductListItemProps) => {
   return(
     <View style={styles.container}>
     <View>
-      <Image style={styles?.image} source={{uri: product.image}} />
+      <Image resizeMode='contain' style={styles?.image} source={{uri: product.image || defaultShoeImage}} />
       <Text style={styles.title}>{product.name}</Text>
       <Text style={styles.price}>${product.price}</Text>
     </View>
-    </View>
+    </View> 
   )
 }
 
@@ -23,7 +31,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor:"white",
     padding:10,
-    borderRadius:15
+    borderRadius:15,
+    flex:1,
+    maxWidth:`50%`
   },
   title: {
     fontSize: 20,
