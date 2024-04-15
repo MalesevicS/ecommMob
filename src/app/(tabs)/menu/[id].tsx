@@ -6,6 +6,8 @@ import { Image } from 'react-native'
 import { defaultShoeImage } from '@components/ProductListItem'
 import { useState } from 'react'
 import Button from '@components/Button'
+import { useCart } from '@providers/CartProvider'
+import { ShoeSizes } from '@Types'
 
 const sizes = [ 42, 44, 46, 48]
 
@@ -13,10 +15,11 @@ const ProductDetailsScreen = () => {
 
   const { id } = useLocalSearchParams()
   const product = products.find ((p) => p.id.toString() === id)
-  const [selectedSize,setSelectedSize] = useState (42)
+  const [selectedSize,setSelectedSize] = useState<ShoeSizes> ("42");
+  const {addItem} = useCart()
 
   const addToCart = () => {
-    console.log("add")
+    addItem(product,selectedSize)
   }
 
   if (!product) {
