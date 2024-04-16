@@ -1,6 +1,7 @@
-import { View, Text, StatusBar, Platform, StyleSheet } from 'react-native'
+import { View, Text, StatusBar, Platform, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
 import { useCart } from '@providers/CartProvider' 
+import CartListItem from '@components/CartListItem'
 
 const cart = () => {
   
@@ -8,7 +9,11 @@ const cart = () => {
 
   return (
     <View>
-      <Text>Cart items length: {items.length}</Text>
+      <FlatList 
+      data={items} 
+      renderItem={({item}) => <CartListItem cartItem={item} />} 
+      contentContainerStyle={{padding:10,gap:10}}
+       />
 
       <StatusBar />
     </View>

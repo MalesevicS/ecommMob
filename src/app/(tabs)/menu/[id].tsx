@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import React from 'react'
-import { Stack, useLocalSearchParams } from 'expo-router'
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
 import products from '@assets/data/products'
 import { Image } from 'react-native'
 import { defaultShoeImage } from '@components/ProductListItem'
@@ -16,11 +16,17 @@ const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams()
   const product = products.find ((p) => p.id.toString() === id)
   const [selectedSize,setSelectedSize] = useState<ShoeSizes> ("42");
-  const {addItem} = useCart()
+  const {addItem} = useCart();
+
+  const router = useRouter();
 
   const addToCart = () => {
-    addItem(product,selectedSize)
-  }
+    if (product) {
+        addItem(product, selectedSize);
+        router.push(`/cart`);
+    }
+};
+
 
   if (!product) {
     return <Text>Product not available</Text>
