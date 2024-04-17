@@ -2,18 +2,21 @@ import { View, Text, StatusBar, Platform, StyleSheet, FlatList } from 'react-nat
 import React from 'react'
 import { useCart } from '@providers/CartProvider' 
 import CartListItem from '@components/CartListItem'
+import Button from '@components/Button'
 
 const cart = () => {
   
-  const {items} = useCart()
+  const {items, total} = useCart()
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList 
       data={items} 
       renderItem={({item}) => <CartListItem cartItem={item} />} 
       contentContainerStyle={{padding:10,gap:10}}
        />
+       <Text style={styles.totalPrice}>${total}</Text>
+       <Button text='Go to checkout' />
 
       <StatusBar />
     </View>
@@ -23,6 +26,13 @@ const cart = () => {
 export default cart
 
 const styles = StyleSheet.create({
-    
+    container: {
+      padding:10
+    },
+    totalPrice: {
+      marginTop:20,
+      fontSize:20,
+      fontWeight:"bold"
+    }
 })
 
