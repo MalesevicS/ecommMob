@@ -14,3 +14,21 @@ export type CartItem = {
     size:ShoeSizes,
     quantity:number
 }
+
+export type OrderItem = {
+    id: number,
+    order_id: number,
+    size: ShoeSizes,
+    quantity: number,
+    product_id: number,
+    products: Product
+}
+
+
+export type Order = {
+    id: number,
+    created_at: string,
+    status: string,
+    user_id: string,
+    order_items: OrderItem[]
+}
