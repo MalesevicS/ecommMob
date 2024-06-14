@@ -32,3 +32,11 @@ export type Order = {
     user_id: string,
     order_items: OrderItem[]
 }
+
+export const OrderListStatus : OrderStatus[] = [
+    `Manufacturing`,
+    `Delivering`,
+    'Delivered'
+]
+
+export type OrderStatus = `Manufacturing` | `Delivering` | 'Delivered'

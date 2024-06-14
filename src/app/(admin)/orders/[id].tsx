@@ -1,9 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import orders from '@assets/data/orders';
 import OrderListItem from '@components/OrderListItem';
 import OrderItemListItem from '@components/OrderItemListItem';
+import { OrderListStatus } from '@Types';
 
 const OrderDetailPage = () => {
     const { id } = useLocalSearchParams(); 
@@ -22,6 +23,38 @@ const OrderDetailPage = () => {
                 renderItem={({ item }) => <OrderItemListItem item={item} />}
                 keyExtractor={(item) => item.id.toString()} 
                 ListHeaderComponent={() => <OrderListItem order={order} />}
+                ListFooterComponent={() => (
+                    <>
+                        <Text style={{fontWeight:"bold"}}>Package status</Text>
+                            <View style={{flexDirection:"row",gap:5}}>
+                                {OrderListStatus.map((status) => (
+                                    <Pressable
+                                    key={status}
+                                    onPress={() => console.log(`Upadating status`)}
+                                    style={{
+                                        borderColor:"blue",
+                                        borderWidth:1,
+                                        padding:10,
+                                        borderRadius:5,
+                                        marginVertical:10,
+                                        backgroundColor:
+                                            order.status === status
+                                                ? "blue"
+                                                : "transparent"
+                                    }}
+                                    >
+
+                                        <Text
+                                        style={{color: order.status === status ? "white" : "blue"}}
+                                        >
+                                            {status}
+                                        </Text>
+
+                                    </Pressable>
+                                ))}
+                            </View>
+                    </>
+                )}
             />
         </View>
     );
